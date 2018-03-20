@@ -1,4 +1,6 @@
-# MATCHING GAME
+# MEMORY GAME
+
+* Click each character without clicking the same one twice
 
 <hr>
 
