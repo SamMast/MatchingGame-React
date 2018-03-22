@@ -46,7 +46,7 @@ class Main extends React.Component {
 
     console.log(this.state.optionsLeft)
 
-    // shuffle items
+    //clone the options and shuffle them up
     var fullOptions = [...options]
     var n = fullOptions.length;
     var tempArr = [];
@@ -57,7 +57,7 @@ class Main extends React.Component {
     }
     // Push the remaining item onto tempArr
     tempArr.push(fullOptions[0]);
-    
+    //set fullOptions to equal the new shuffled tempArr
     fullOptions=tempArr; 
 
     return (
