@@ -15,10 +15,9 @@ class Main extends React.Component {
   //check function
   checkClick = event => {
     event.preventDefault();
-    //if clicked id is in the optionsLeft object -> filter item with that id out of object and add a point
-    console.log(this.state.optionsLeft);//this only works without the shuffle below
     console.log(event.target.id); //this is the id of the clicked item
 
+    //if clicked id is in not the guesses array -> push it into array and add 1 to the score
   	if (this.guesses.indexOf(event.target.id) === -1) {
       this.guesses.push(event.target.id);
 
