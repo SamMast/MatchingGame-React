@@ -10,25 +10,28 @@ class Main extends React.Component {
     optionsLeft: options
   };
 
+  guesses = []
 
   //check function
-  check = id => {
+  checkClick = event => {
+    event.preventDefault();
     //if clicked id is in the optionsLeft object -> filter item with that id out of object and add a point
-  	if (this.optionsLeft.includes(id)) {
-  		this.optionsLeft.filter(option => this.id !== id);
+    console.log(this.state.optionsLeft);//this only works without the shuffle below
+    console.log(event.target.id); //this is the id of the clicked item
+
+  	if (this.guesses.indexOf(event.target.id) === -1) {
+      this.guesses.push(event.target.id);
 
       this.setState({ score: this.state.score + 1 });
       
       //if points > current top score, then update top score to equal current score
-  		if (this.score > this.topScore) {
-			  this.setState({ topScore: this.state.score });
+  		if (this.state.score + 1 > this.state.topScore) {
+			  this.setState({ topScore: this.state.score + 1 });
   		}
 
-      //then reshuffle items randomly on page
-        this.shuffle();
   	} else {
     //else if clicked id is not in the optionsLeft object -> reset game states and reshuffle
-      this.shuffle();
+      this.guesses = [];
 
       this.setState({
         score: 0,
@@ -38,18 +41,25 @@ class Main extends React.Component {
     }
   }
 
-  //shuffle function
-  shuffle = () => {
-    for (let i = options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return options;
-
-  }
-
 
   render() {
+
+    console.log(this.state.optionsLeft)
+
+    // shuffle items
+    var fullOptions = [...options]
+    var n = fullOptions.length;
+    var tempArr = [];
+    for ( var i = 0; i < n-1; i++ ) {
+      // The following line removes one random element from arr
+      // and pushes it onto tempArr
+      tempArr.push(fullOptions.splice(Math.floor(Math.random()*fullOptions.length),1)[0]);
+    }
+    // Push the remaining item onto tempArr
+    tempArr.push(fullOptions[0]);
+    
+    fullOptions=tempArr; 
+
     return (
     	<div>
   			<nav className="navbar">
@@ -66,14 +76,19 @@ class Main extends React.Component {
 	    	</header>
 
   			<main className="container">
-          {this.state.optionsLeft.map(item => (
+          {fullOptions.map(item => (
             <div 
               className="list-group-item"
               key={item.id}
               id={item.id}
-              onClick={this.check}
+              onClick={this.checkClick}
             >
-              <img src={item.image}/>
+              <img 
+                src={item.image}
+                key={item.id}
+                id={item.id}
+                alt={item.name}
+              />
             </div>
           ))}
   			</main>
