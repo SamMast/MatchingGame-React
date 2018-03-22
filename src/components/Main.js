@@ -68,7 +68,7 @@ class Main extends React.Component {
   					<li>Score: {this.state.score} | Top Score: {this.state.topScore}</li>
   				</ul>
   			</nav>
-        <Nav clss 
+
 	    	<header className="header">
 	    		<h1>Memory Game!</h1>
 	    		<h2>Click on an image to earn points, but don't click on any image more than once!</h2>
